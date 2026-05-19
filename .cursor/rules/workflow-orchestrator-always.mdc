@@ -1,14 +1,47 @@
 ---
-description: "Chief spawns orchestrator for ship bar; one PR per task; route to six domain experts"
+description: "Chief delegates orchestrator for ship bar; one PR per task; six domain experts"
 alwaysApply: true
 ---
 
-# Workflow orchestrator
+# Workflow orchestrator (chief-delegated)
 
-Run after chief assigns work, or if chief waived.
+telegram-medical-channels uses **chief agent** (coordination) above **workflow orchestrator** (ship bar). Parent agents spawn **chief first**; chief delegates orchestrator cycles. Orchestrator **does not** spawn chief.
 
-One PR per task. Do not bundle discovery + scrape + registry + workbook in one PR.
+## Autonomous operations
 
-Manual: **run workflow orchestrator** — read .cursor/skills/workflow-orchestrator/SKILL.md
+The user does **not** invoke orchestrator manually each session. **Chief** (hooks + `chief-agent-always.mdc`) assigns orchestrator when git/PR/CI/merge work is needed.
 
-Does not waive WORKFLOW.md steps 5-7 or verify:local.
+## Session start
+
+After orienting, if dirty `git status`, open `gh pr list`, recent subagent transcripts, or multiple `agent/*` branches — **spawn or resume chief** (not orchestrator directly) unless chief waived in writing:
+
+```
+Task: generalPurpose, run_in_background=true
+Prompt: .cursor/skills/chief-agent/SKILL.md — SCAN -> LOCK CHECK -> PLAN -> DELEGATE; delegate ship bar to workflow-orchestrator when needed.
+```
+
+## After substantive subagent work
+
+When a Task subagent returns after implementation, discovery, scrape, registry, workbook, docs, PR babysit, or orchestrator cycle:
+
+1. Spawn or resume **chief** unless chief ran in the last **5 minutes**.
+2. Chief re-scans locks and delegates **one** orchestrator cycle or path owner per queue item.
+3. When executing orchestrator this turn (chief delegation only), follow `.cursor/skills/workflow-orchestrator/SKILL.md`.
+
+## One PR per task (hard)
+
+- Do **not** bundle discovery + scrape + registry + workbook + unrelated fixes in one PR.
+- Meta `.cursor/` / `AGENTS.md` / hooks plumbing -> `agent/workflow-orchestrator-*` or `agent/auto-chief-*` branch only.
+- Uncommitted work -> partitioned PRs on `agent/<slug>`; **never** routine direct commits to `main`.
+
+## Manual invoke (optional)
+
+**"run workflow orchestrator"** — read `.cursor/skills/workflow-orchestrator/SKILL.md`. Chief may have already delegated.
+
+## Hooks
+
+`sessionStart` / `subagentStop` / `stop` inject chief-first follow-up via `.cursor/hooks/orchestrator-remind.mjs`. Signal to run **chief**, not to skip `WORKFLOW.md`.
+
+## Ship bar unchanged
+
+Orchestrator does **not** waive `WORKFLOW.md` steps 5-7, bot wait, thread closure, or `npm run verify:local`.

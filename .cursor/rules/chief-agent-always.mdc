@@ -1,24 +1,65 @@
 ---
-description: "Spawn chief agent first; path locks and dedupe before orchestrator or domain workers"
+description: "Always-on chief agent; mandatory Task spawn on session start and after substantive work"
 alwaysApply: true
 ---
 
-# Chief agent (spawn first)
+# Chief agent (always on)
 
-telegram-medical-channels uses **chief -> orchestrator -> domain expert** delegation.
+telegram-medical-channels uses **chief -> orchestrator -> domain expert** delegation. The user does **not** micromanage with "run chief agent" each session — **hooks and this rule enforce chief automatically**.
 
-## Session start
+## Honest limits
 
-If dirty `git status`, open PRs, or recent subagent transcripts — **spawn chief first** unless waived:
+Cursor hooks run **only while the IDE session is active**. They are **not** a 24/7 OS daemon outside Cursor. Maximize automation **inside** Cursor via `sessionStart`, `subagentStop`, and `stop` (see `.cursor/hooks.json`).
 
-Task: generalPurpose, run_in_background=true, prompt = .cursor/skills/chief-agent/SKILL.md
+## Mandatory spawn (hard)
 
-Chief spawns orchestrator for git/PR work. Parent does not spawn orchestrator unless chief waived.
+**You MUST** spawn chief via the Task tool unless chief completed a full cycle in the **last 5 minutes** (check `.cursor/chief-session-state.json` or hook dedupe):
+
+```
+Task: subagent_type=generalPurpose, run_in_background=true
+Prompt: Follow .cursor/skills/chief-agent/SKILL.md — SCAN -> LOCK CHECK -> PLAN -> DELEGATE; delegate ship bar to workflow-orchestrator when needed; report locks + queue.
+```
+
+### When to spawn (non-exhaustive)
+
+1. **Every session start** after orienting — even on a clean tree.
+2. **After every substantive** Task subagent return (implementation, scrape, discovery, registry, workbook, pr-fix, orchestrator).
+3. **When hooks inject** a `followup_message` from `.cursor/hooks/orchestrator-remind.mjs`.
+4. **Before feature edits** when `git status` is dirty, `gh pr list` is non-empty, or multiple `agent/*` branches exist.
+
+### Never skip
+
+- Parent agents **NEVER** spawn workflow-orchestrator or domain workers for git/PR/ship-bar work **before** chief assigns locks — unless the user **explicitly waived chief in writing** for this session.
+- Do **not** commit directly to `main` for routine work; chief partitions into `agent/<slug>` and one PR per task.
+
+## Pre-delegate checklist (chief)
+
+1. `git status --porcelain`
+2. `gh pr list --state open`
+3. Path locks per `.cursor/skills/chief-agent/SKILL.md`
+4. `git branch --list agent/*` (overlap / duplicate writers)
 
 ## Hard rules
 
-- One worker per path partition unless chief transfers lock.
-- One pr-fix worker per open PR number.
-- Chief does not waive WORKFLOW.md steps 5-7.
+- **One writer** per path partition unless chief transfers lock.
+- **One pr-fix worker** per open PR number.
+- Chief does **not** waive `WORKFLOW.md` steps 5-7 or `verify:local`.
+- **Dedupe** chief/orchestrator Task spawns within **5 minutes**; resume one in-flight chief instead of parallel duplicates.
 
-Manual: **run chief agent**
+## Ship-bar gate
+
+Chief **never** marks work "done" until orchestrator reports thread closure + merge **or** explicit user waiver for that PR.
+
+## Manual invoke (optional)
+
+User may still say **"run chief agent"** — same skill, full cycle. Hooks make this redundant for normal sessions.
+
+## Hooks
+
+| Event | Behavior |
+|-------|----------|
+| `sessionStart` | Chief orientation; stronger if dirty tree / open PRs |
+| `subagentStop` | Post-subagent chief follow-up (deduped 5 min) |
+| `stop` | Parent agent stop; same remind script |
+
+Treat hook output as **mandatory** — not a substitute for lock checks or `WORKFLOW.md`.

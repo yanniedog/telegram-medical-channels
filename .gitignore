@@ -70,3 +70,6 @@ Thumbs.db
 .vscode/
 *.swp
 *~
+
+# Chief hook dedupe state (local only)
+.cursor/chief-session-state.json

@@ -69,6 +69,20 @@ See **`SWARM_RUNBOOK.md`** for 50+ subagent discovery waves.
 | Workbook | `build_workbook.py`, `build_from_cache.py`, `keyword_analyzer.py` |
 | Pipeline | `run_full_rerun.py`, `rate_limit.py` |
 
+
+## Autonomous operations
+
+You do **not** need to say **"run chief agent"** each session. **Hooks + always-on rules** enforce chief-first coordination:
+
+| Trigger | What happens |
+|---------|----------------|
+| sessionStart | Hook reminds parent to spawn chief (un_in_background=true) |
+| subagentStop / stop | Hook reminds after substantive work (5 min dedupe) |
+| Dirty tree / open PRs | Stronger reminder: chief before feature edits; partition into gent/<slug> PRs |
+
+**Not a 24/7 daemon** — automation is maximized **inside Cursor** only. Enable **Cursor Hooks** in settings if disabled.
+
+See [TEAM.md](TEAM.md) for roster and delegation flow.
 ## Multi-agent team (10 roles)
 
 See **TEAM.md** for roster, delegation flow, and invoke phrases.
@@ -81,7 +95,7 @@ See **TEAM.md** for roster, delegation flow, and invoke phrases.
 | Explore (readonly) | [`.cursor/skills/explore-agent/SKILL.md`](.cursor/skills/explore-agent/SKILL.md) |
 | Domain experts (6) | `.cursor/skills/*-expert/SKILL.md` — routed by orchestrator |
 
-**Manual chief:** say **"run chief agent"**. **Manual orchestrator:** say **"run workflow orchestrator"**.
+**Manual chief / orchestrator** (optional): say **"run chief agent"** or **"run workflow orchestrator"** — hooks handle normal sessions.
 
 Hook reminder: [`.cursor/hooks/orchestrator-remind.mjs`](.cursor/hooks/orchestrator-remind.mjs).
 
