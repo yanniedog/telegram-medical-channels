@@ -1,0 +1,10 @@
+---
+description: "Ship bar summary — local Python verify, no Cloudflare/Pi"
+alwaysApply: true
+---
+
+# Ship bar (summary)
+
+Full steps: WORKFLOW.md. Branch agent/<slug> -> PR -> CI -> wait-for-bots -> synthesis -> threads -> merge -> normalize/build -> npm run verify:local.
+
+Closeout: npm run ship:closeout:strict ; npm run wait-for-bots

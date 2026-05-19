@@ -1,0 +1,24 @@
+---
+description: "Spawn chief agent first; path locks and dedupe before orchestrator or domain workers"
+alwaysApply: true
+---
+
+# Chief agent (spawn first)
+
+telegram-medical-channels uses **chief -> orchestrator -> domain expert** delegation.
+
+## Session start
+
+If dirty `git status`, open PRs, or recent subagent transcripts — **spawn chief first** unless waived:
+
+Task: generalPurpose, run_in_background=true, prompt = .cursor/skills/chief-agent/SKILL.md
+
+Chief spawns orchestrator for git/PR work. Parent does not spawn orchestrator unless chief waived.
+
+## Hard rules
+
+- One worker per path partition unless chief transfers lock.
+- One pr-fix worker per open PR number.
+- Chief does not waive WORKFLOW.md steps 5-7.
+
+Manual: **run chief agent**

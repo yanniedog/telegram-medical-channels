@@ -1,0 +1,11 @@
+---
+description: "Fix-commit-verify loop until npm run verify:local passes"
+alwaysApply: true
+---
+
+# Fix-Commit-Verify Loop
+
+1. Fix on topic branch.
+2. Commit + push; complete WORKFLOW.md ship bar.
+3. After merge: npm run verify:local
+4. Repeat until exit 0 unless user waives.

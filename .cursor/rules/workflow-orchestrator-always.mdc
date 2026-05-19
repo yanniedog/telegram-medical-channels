@@ -1,0 +1,14 @@
+---
+description: "Chief spawns orchestrator for ship bar; one PR per task; route to six domain experts"
+alwaysApply: true
+---
+
+# Workflow orchestrator
+
+Run after chief assigns work, or if chief waived.
+
+One PR per task. Do not bundle discovery + scrape + registry + workbook in one PR.
+
+Manual: **run workflow orchestrator** — read .cursor/skills/workflow-orchestrator/SKILL.md
+
+Does not waive WORKFLOW.md steps 5-7 or verify:local.

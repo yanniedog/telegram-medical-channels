@@ -1,0 +1,9 @@
+﻿python.exe : Traceback (most recent call last):
+At C:\Users\jkoka\AppData\Local\Temp\ps-script-5874d80f-7ee4-439b-bc9b-d2ecf0f0bb94.ps1:90 char:22
++ ... e\telegram; & "C:\Users\jkoka\AppData\Local\Programs\Python\Python311 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "<string>", line 11, in <module>
+NameError: name 'Path' is not defined

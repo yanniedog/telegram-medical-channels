@@ -1,0 +1,6 @@
+﻿Unique handles from discovery: 44
+  meta 10/44 qualified(>=2k)=0
+  meta 20/44 qualified(>=2k)=0
+  meta 30/44 qualified(>=2k)=0
+  meta 40/44 qualified(>=2k)=0
+Wrote data\discovered_channels.json qualified=0 total_meta=44

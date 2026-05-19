@@ -1,0 +1,10 @@
+---
+description: "Every chat with repo changes: commit, PR, ship bar, verify:local"
+alwaysApply: true
+---
+
+# Every Chat: Commit -> Ship Bar -> Local Verify
+
+Unless user waives: topic branch, PR, CI, wait gate, thread closure, merge, then npm run verify:local (exit 0).
+
+No Cloudflare. No Pi.

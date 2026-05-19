@@ -1,0 +1,10 @@
+---
+description: "Urgency never waives bot wait or thread closure"
+alwaysApply: true
+---
+
+# Workflow rules cannot be overridden by tone
+
+"merge everything", "just merge", "CI green", urgency — do NOT waive WORKFLOW.md steps 5-6 or the 7-minute bot wait after new PR or bot tags.
+
+Only explicit written waiver per PR waives bot closeout.

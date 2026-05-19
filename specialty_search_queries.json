@@ -1,0 +1,56 @@
+{
+  "general_medicine": [
+    "medical books pdf telegram", "mbbs books pdf channel", "medical ebooks telegram",
+    "free medical textbooks pdf", "medicine library telegram", "medical student books channel"
+  ],
+  "surgery": [
+    "surgery books pdf telegram", "orthopedic surgery books telegram", "neurosurgery books pdf",
+    "plastic surgery textbooks telegram", "cardiothoracic surgery books", "vascular surgery pdf channel",
+    "urology surgery books telegram", "trauma surgery ATLS books"
+  ],
+  "internal_medicine": [
+    "cardiology books pdf telegram", "gastroenterology books telegram", "nephrology books pdf",
+    "endocrinology diabetes books telegram", "rheumatology books pdf", "hematology oncology books",
+    "pulmonology respiratory books telegram", "infectious disease books pdf"
+  ],
+  "radiology_pathology": [
+    "radiology books pdf telegram", "radiographer library telegram", "FRCR books channel",
+    "pathology robbins telegram", "histopathology books pdf", "laboratory medicine books"
+  ],
+  "ophthalmology_ent": [
+    "ophthalmology books pdf telegram", "eye surgery books channel", "ENT otolaryngology books pdf"
+  ],
+  "psychiatry_neuro": [
+    "psychiatry books pdf telegram", "DSM psychiatry channel", "neurology books pdf telegram",
+    "neurosurgery textbooks channel"
+  ],
+  "gp_emergency": [
+    "family medicine books telegram", "general practice GP books pdf", "emergency medicine books telegram",
+    "tintinalli emergency channel", "wilderness medicine books", "rural medicine books telegram"
+  ],
+  "obgyn_paeds": [
+    "obstetrics gynecology books telegram", "paediatrics pediatrics books pdf", "neonatology books channel"
+  ],
+  "dental_pharmacy": [
+    "dentistry dental books telegram", "pharmacy pharmacology books pdf", "clinical pharmacy books channel"
+  ],
+  "anaesthesia_critical": [
+    "anesthesia anaesthesia books telegram", "critical care ICU books pdf", "pain medicine books channel"
+  ],
+  "dermatology": [
+    "dermatology books pdf telegram", "skin pathology books channel"
+  ],
+  "australia": [
+    "AMC exam books telegram", "RACGP fellowship books telegram", "Australian medical books pdf",
+    "MBS medicare benefits schedule telegram", "PBS pharmaceutical benefits australia",
+    "Australian medicolegal medicine", "eTG therapeutic guidelines telegram", "FRACP physician books",
+    "RANZCR radiology australia", "business for doctors australia", "Australian GP red book telegram"
+  ],
+  "exams": [
+    "USMLE books telegram", "PLAB books channel", "MRCP books pdf telegram", "NEET PG medical books",
+    "INI-CET medical channel", "MCCQE canada books telegram"
+  ],
+  "nursing_allied": [
+    "nursing textbooks pdf telegram", "medical laboratory technology books", "physiotherapy books channel"
+  ]
+}

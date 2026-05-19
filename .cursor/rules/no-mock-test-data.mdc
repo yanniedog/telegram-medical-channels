@@ -1,0 +1,10 @@
+---
+description: "No mock Telegram posts — real Lyzem/t.me/TGStat data only"
+alwaysApply: true
+---
+
+# Real data only
+
+Do not invent channel posts, subscriber counts, or discovery JSON. Use real fetches into data/posts/ and data/discovered_channels.json.
+
+Tiny literals OK for pure string/path helpers only.
