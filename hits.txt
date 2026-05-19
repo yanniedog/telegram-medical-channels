@@ -1,8 +1,0 @@
-﻿obstetricsgynecology1 6730 ['gynecology', 'obgyn', 'obstetrics', 'paediatrics']
-pdfchannelgynecologist 3680 ['gynecology', 'obgyn', 'obstetrics']
-drakbarnejad1 4138 ['gynecology', 'obgyn', 'obstetrics']
-surgery_6 5337 ['gynecology', 'obgyn', 'obstetrics', 'paediatrics']
-surgery_6 5337 ['gynecology', 'obgyn', 'obstetrics', 'paediatrics']
-pedsurgery 7445 ['paediatrics']
-ob_gyn_books 6008 ['obgyn']
-pediatric_pdfs 8501 ['paediatrics']

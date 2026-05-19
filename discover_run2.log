@@ -1,8 +1,0 @@
-﻿Unique handles from discovery: 65
-  meta 10/65 qualified(>=2k)=8
-  meta 20/65 qualified(>=2k)=14
-  meta 30/65 qualified(>=2k)=16
-  meta 40/65 qualified(>=2k)=19
-  meta 50/65 qualified(>=2k)=23
-  meta 60/65 qualified(>=2k)=29
-Wrote data\discovered_channels.json qualified=30 total_meta=65

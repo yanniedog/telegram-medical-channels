@@ -1,5 +1,0 @@
-﻿new candidates 89
-qualified 2k+ 3
-('bookstore_gilan', 2546, 'Book Store')
-('tamilbookonline', 5863, 'Tamil pdf books')
-('speedybook', 173124, 'SPEEDY BOOKS PDF')

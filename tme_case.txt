@@ -1,4 +1,0 @@
-﻿MedicalBooksStoress 0 None
-pdf4yo 0 None
-Internal_medicine_material 0 None
-webofmedical 81 67
