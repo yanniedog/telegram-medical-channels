@@ -6,9 +6,10 @@
  * Within Cursor only - not a 24/7 OS daemon. Fail-open on errors (exit 0, {}).
  * Dedupes via .cursor/chief-session-state.json (gitignored).
  */
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { readFileSync, readSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const repoRoot = process.cwd();
 const STATE_PATH = join(repoRoot, ".cursor", "chief-session-state.json");
@@ -17,9 +18,10 @@ const EXEC_MAX_BUFFER = 1024 * 1024;
 const DEDUPE_MINUTES = 5;
 const DEFAULT_REPO = "yanniedog/telegram-medical-channels";
 
-function run(cmd) {
+function run(command, args = []) {
   try {
-    return execSync(cmd, {
+    return execFileSync(command, args, {
+      windowsHide: true,
       cwd: repoRoot,
       encoding: "utf8",
       stdio: ["pipe", "pipe", "pipe"],
@@ -72,17 +74,16 @@ function writeState(patch) {
   } catch {}
 }
 
-function recentlyReminded() {
-  const state = readState();
-  const at = state.lastChiefReminderAt;
+export function recentlyCompleted(state, now = Date.now()) {
+  const at = state.lastChiefCompletedAt;
   if (!at) return false;
-  const ms = Date.now() - Date.parse(at);
+  const ms = now - Date.parse(at);
   return Number.isFinite(ms) && ms >= 0 && ms < DEDUPE_MINUTES * 60 * 1000;
 }
 
 function countAgentBranches() {
   try {
-    const branches = run("git branch --list agent/*");
+    const branches = run("git", ["branch", "--list", "agent/*"]);
     if (!branches) return 0;
     return branches.split(/\r?\n/).filter(Boolean).length;
   } catch {
@@ -130,7 +131,7 @@ function buildMessage({ hookEvent, dirty, openPrCount, agentBranchCount }) {
 
 function githubRepoSlug() {
   try {
-    const url = run("git config --get remote.origin.url");
+    const url = run("git", ["config", "--get", "remote.origin.url"]);
     const match = url.match(/github\.com[:/]([^/]+\/[^/.]+)/);
     return match ? match[1].replace(/\.git$/, "") : DEFAULT_REPO;
   } catch {
@@ -141,7 +142,7 @@ function githubRepoSlug() {
 function main() {
   const hookEvent = readStdinHookEvent();
 
-  if (recentlyReminded()) {
+  if (hookEvent !== "sessionStart" && recentlyCompleted(readState())) {
     console.log("{}");
     return;
   }
@@ -151,13 +152,12 @@ function main() {
   let agentBranchCount = 0;
 
   try {
-    dirty = Boolean(run("git status --porcelain"));
+    dirty = Boolean(run("git", ["status", "--porcelain"]));
   } catch {}
 
   try {
     const slug = githubRepoSlug();
-    const repoFlag = slug ? ` --repo ${slug}` : "";
-    const out = run(`gh pr list --state open --json number${repoFlag}`);
+    const out = run("gh", ["pr", "list", "--state", "open", "--json", "number", "--repo", slug]);
     const parsed = JSON.parse(out || "[]");
     openPrCount = Array.isArray(parsed) ? parsed.length : 0;
   } catch {}
@@ -184,8 +184,6 @@ function main() {
   console.log(JSON.stringify({ followup_message: msg }));
 }
 
-try {
-  main();
-} catch {
-  console.log("{}");
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  try { main(); } catch { console.log("{}"); }
 }

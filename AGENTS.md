@@ -76,13 +76,12 @@ You do **not** need to say **"run chief agent"** each session. **Hooks + always-
 
 | Trigger | What happens |
 |---------|----------------|
-| sessionStart | Hook reminds parent to spawn chief (un_in_background=true) |
+| sessionStart | Hook reminds parent to spawn chief (run_in_background=true) |
 | subagentStop / stop | Hook reminds after substantive work (5 min dedupe) |
-| Dirty tree / open PRs | Stronger reminder: chief before feature edits; partition into gent/<slug> PRs |
+| Dirty tree / open PRs | Stronger reminder: chief before feature edits; partition into agent/<slug> PRs |
 
 **Not a 24/7 daemon** — automation is maximized **inside Cursor** only. Enable **Cursor Hooks** in settings if disabled.
 
-See [TEAM.md](TEAM.md) for roster and delegation flow.
 ## Multi-agent team (10 roles)
 
 See **TEAM.md** for roster, delegation flow, and invoke phrases.
