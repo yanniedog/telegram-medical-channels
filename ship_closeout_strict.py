@@ -37,7 +37,7 @@ def main() -> int:
         return 1
     if data:
         print(
-            f"ship_closeout_strict: open PR still exists for {branch}   complete WORKFLOW.md steps 5 9.",
+            f"ship_closeout_strict: open PR still exists for {branch} -  complete WORKFLOW.md steps 5- 9.",
             file=sys.stderr,
         )
         return 2
