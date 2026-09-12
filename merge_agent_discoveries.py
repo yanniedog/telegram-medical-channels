@@ -158,7 +158,7 @@ def ingest_discovery_file(reg: dict[str, dict], path: Path) -> int:
     if not path.exists():
         return 0
     try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
+        raw = json.loads(path.read_bytes())
     except json.JSONDecodeError:
         return 0
     if not isinstance(raw, list):
@@ -359,7 +359,7 @@ def run_normalize() -> None:
         for path in sorted(POSTS_DIR.glob("*.json")):
             u = path.stem.lower()
             try:
-                posts = json.loads(path.read_text(encoding="utf-8"))
+                posts = json.loads(path.read_bytes())
             except json.JSONDecodeError:
                 rescrape.append(u)
                 path.unlink(missing_ok=True)
