@@ -7,8 +7,8 @@
     "ship:closeout:strict": "python ship_closeout_strict.py",
     "verify:local": "python verify_local.py",
     "git:graph-hygiene": "git fetch origin --prune",
-    "chief:scan": "node \"%CURSOR_WORKFLOW_SCRIPTS%\\chief-scan.mjs\"",
-    "pr:bot-feedback-check": "node \"%CURSOR_WORKFLOW_SCRIPTS%\\pr-bot-feedback-check.mjs\"",
-    "pr:bot-feedback-audit": "node \"%CURSOR_WORKFLOW_SCRIPTS%\\pr-bot-feedback-check.mjs\" --audit-merged --limit 20"
+    "chief:scan": "node scripts/run-global-workflow.mjs chief-scan.mjs",
+    "pr:bot-feedback-check": "node scripts/run-global-workflow.mjs pr-bot-feedback-check.mjs",
+    "pr:bot-feedback-audit": "node scripts/run-global-workflow.mjs pr-bot-feedback-check.mjs --audit-merged --limit 20"
   }
 }
