@@ -13,14 +13,16 @@ Cursor hooks run **only while the IDE session is active**. They are **not** a 24
 
 ## Mandatory spawn (hard)
 
-**You MUST** spawn chief via the Task tool unless chief completed a full cycle in the **last 5 minutes** (check `.cursor/chief-session-state.json` or hook dedupe):
+**The top-level parent MUST** spawn chief via the Task tool unless chief completed a full cycle in the **last 5 minutes** (check `.cursor/chief-session-state.json` or hook dedupe):
 
 ```
 Task: subagent_type=generalPurpose, run_in_background=true
 Prompt: Follow .cursor/skills/chief-agent/SKILL.md — SCAN -> LOCK CHECK -> PLAN -> DELEGATE; delegate ship bar to workflow-orchestrator when needed; report locks + queue.
 ```
 
-### When to spawn (non-exhaustive)
+An active chief continues its existing cycle. Delegated orchestrators and domain workers report to their assigning chief and must not spawn a chief.
+
+### When to spawn (top-level parent only)
 
 1. **Every session start** after orienting — even on a clean tree.
 2. **After every substantive** Task subagent return (implementation, scrape, discovery, registry, workbook, pr-fix, orchestrator).

@@ -13,7 +13,7 @@ The user does **not** invoke orchestrator manually each session. **Chief** (hook
 
 ## Session start
 
-After orienting, if dirty `git status`, open `gh pr list`, recent subagent transcripts, or multiple `agent/*` branches — **spawn or resume chief** (not orchestrator directly) unless chief waived in writing:
+For the top-level parent only: after orienting, if dirty `git status`, open `gh pr list`, recent subagent transcripts, or multiple `agent/*` branches — **spawn or resume chief** (not orchestrator directly) unless chief waived in writing:
 
 ```
 Task: generalPurpose, run_in_background=true
@@ -24,9 +24,11 @@ Prompt: .cursor/skills/chief-agent/SKILL.md — SCAN -> LOCK CHECK -> PLAN -> DE
 
 When a Task subagent returns after implementation, discovery, scrape, registry, workbook, docs, PR babysit, or orchestrator cycle:
 
-1. Spawn or resume **chief** unless chief ran in the last **5 minutes**.
+1. The top-level parent spawns or resumes **chief** unless chief ran in the last **5 minutes**.
 2. Chief re-scans locks and delegates **one** orchestrator cycle or path owner per queue item.
 3. When executing orchestrator this turn (chief delegation only), follow `.cursor/skills/workflow-orchestrator/SKILL.md`.
+
+An active chief continues its existing cycle. A chief-delegated orchestrator or domain worker returns findings to its assigning chief; neither spawns another chief.
 
 ## One PR per task (hard)
 
