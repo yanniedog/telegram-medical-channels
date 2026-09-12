@@ -102,3 +102,6 @@ Hook reminder: [`.cursor/hooks/orchestrator-remind.mjs`](.cursor/hooks/orchestra
 
 - Use **fresh scrape/registry state** and script stdout/stderr, not stale assumptions.
 - If **`frequent_errors.txt`** exists in the repo root, check fixes against known recurring failures before claiming scripts are fine.
+
+Shared workflow commands read CURSOR_WORKFLOW_SCRIPTS from the environment; set it to the shared workflow scripts directory. The Node launcher works on Windows and Linux.
+Run node --test .cursor/hooks/orchestrator-remind.test.mjs after hook changes.
